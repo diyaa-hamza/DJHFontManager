@@ -1,12 +1,10 @@
 # DJHFontManager
-
 Change the font for all UILabel, UIButton, UITextView and UITextfield
 with passing your font
 
 
 
 # Install
-
 Add `pod 'DJHFontManager'`
 Run `pod 'install`
 
@@ -14,7 +12,6 @@ Run `pod 'install`
 
 
 # How To Use 
-
 In your AppDelegate
     //Change the font name to your font family or keep it empty to use the current font
     let fontConfig = DJHFontManager.DJHFotnConfigration.init(reqular: "Change to Reqular Font Name",
@@ -29,9 +26,8 @@ In your AppDelegate
 
 
 # Author 
-
- * LinkedIn : [dhamza](https://www.linkedin.com/in/dhamza/)
- * Website: http://dhamza.com
+* LinkedIn : [dhamza](https://www.linkedin.com/in/dhamza/)
+* Website: http://dhamza.com
  
 
 
