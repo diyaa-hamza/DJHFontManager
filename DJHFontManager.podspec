@@ -17,6 +17,7 @@ Pod::Spec.new do |spec|
 
   spec.name         = "DJHFontManager"
   spec.version      = "0.0.1"
+spec.swift_version = '4.2'
   spec.summary      = "Change the font for all the app with one line of code"
 
   # This description is used to generate tags and improve search results.
