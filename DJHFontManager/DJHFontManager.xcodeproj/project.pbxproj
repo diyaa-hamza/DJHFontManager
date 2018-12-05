@@ -7,13 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		745CF0E621B7AE9C0064D211 /* DJHFontManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 745CF0E421B7AE9C0064D211 /* DJHFontManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		745CF0ED21B7AEC70064D211 /* DJHFontManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745CF0EC21B7AEC70064D211 /* DJHFontManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		745CF0E121B7AE9C0064D211 /* DJHFontManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DJHFontManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		745CF0E421B7AE9C0064D211 /* DJHFontManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DJHFontManager.h; sourceTree = "<group>"; };
 		745CF0E521B7AE9C0064D211 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		745CF0EC21B7AEC70064D211 /* DJHFontManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DJHFontManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -48,7 +46,6 @@
 		745CF0E321B7AE9C0064D211 /* DJHFontManager */ = {
 			isa = PBXGroup;
 			children = (
-				745CF0E421B7AE9C0064D211 /* DJHFontManager.h */,
 				745CF0E521B7AE9C0064D211 /* Info.plist */,
 				745CF0EC21B7AEC70064D211 /* DJHFontManager.swift */,
 			);
@@ -62,7 +59,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				745CF0E621B7AE9C0064D211 /* DJHFontManager.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
