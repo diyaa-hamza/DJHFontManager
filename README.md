@@ -26,7 +26,7 @@ In your AppDelegate
 
 
 # Author 
-* LinkedIn : [dhamza](https://www.linkedin.com/in/dhamza/)
+* LinkedIn : https://www.linkedin.com/in/dhamza/
 * Website: http://dhamza.com
  
 
