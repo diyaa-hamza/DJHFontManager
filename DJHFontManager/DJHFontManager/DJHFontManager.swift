@@ -14,6 +14,7 @@ open class DJHFontManager {
         case light
         case italic
         case black
+        case medium
     }
     public static let shared = DJHFontManager()
     private var config = DJHFotnConfigration()
@@ -42,15 +43,16 @@ open class DJHFontManager {
         var light: String?
         var italic: String?
         var black: String?
-        public init() {
-            
-        }
-        public init(reqular: String, bold: String, light: String, italic: String, black: String) {
+        var medium: String?
+        public init() { }
+        
+        public init(reqular: String, bold: String, light: String, italic: String, black: String, medium: String) {
             self.reqular = reqular
             self.bold = bold
             self.light = light
             self.italic = italic
             self.black = black
+            self.medium = medium
         }
     }
 }
@@ -79,6 +81,8 @@ extension UIFont {
             fontName = DJHFontManager.shared.getFontName(DJHFontManager.DJHFontType.light)
         }else if fAttribute.hasSuffix("italic"){
             fontName = DJHFontManager.shared.getFontName(DJHFontManager.DJHFontType.italic)
+        }else if fAttribute.hasSuffix("medium"){
+            fontName = DJHFontManager.shared.getFontName(DJHFontManager.DJHFontType.medium)
         }else{
             fontName = DJHFontManager.shared.getFontName(DJHFontManager.DJHFontType.reqular)
         }
