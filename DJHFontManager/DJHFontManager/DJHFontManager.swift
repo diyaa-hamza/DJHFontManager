@@ -42,10 +42,10 @@ open class DJHFontManager {
         var light: String?
         var italic: String?
         var black: String?
-        init() {
+        public init() {
             
         }
-        init(reqular: String, bold: String, light: String, italic: String, black: String) {
+        public init(reqular: String, bold: String, light: String, italic: String, black: String) {
             self.reqular = reqular
             self.bold = bold
             self.light = light
