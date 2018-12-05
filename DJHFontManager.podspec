@@ -41,7 +41,7 @@ with passing your font
   #
 
 # spec.license      = "MIT"
-  s.license          = { :type => 'MIT', :file => 'LICENSE' }
+  spec.license          = { :type => 'MIT', :file => 'LICENSE' }
 
 
   # ――― Author Metadata  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
