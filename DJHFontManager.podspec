@@ -81,7 +81,7 @@ with passing your font
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  spec.source       = { :git => "https://github.com/diyaa-hamza/DJHFontManager.git", :tag => "spec.version.to_s" }
+  spec.source       = { :git => "https://github.com/diyaa-hamza/DJHFontManager.git", :tag => spec.version.to_s }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
