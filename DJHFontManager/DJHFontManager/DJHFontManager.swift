@@ -17,8 +17,8 @@ open class DJHFontManager {
         case medium
     }
     public static let shared = DJHFontManager()
-    private var config = DJHFotnConfigration()
-    public init() {}
+    private  var config = DJHFotnConfigration()
+    
     public func activate(config: DJHFotnConfigration){
         self.config = config
         UIFont.overrideInitialize()
@@ -27,14 +27,19 @@ open class DJHFontManager {
     public func getFontName(_ type: DJHFontType) -> String{
         var fontName = ""
         switch type {
+        case .bold:
+            fontName = config.bold ?? ""
+        case .medium:
+            fontName = config.medium ?? ""
+        case .black:
+            fontName = config.black ?? ""
+        case .italic:
+            fontName = config.italic ?? ""
+        case .light:
+            fontName = config.light ?? ""
         case .reqular:
             fontName = config.reqular ?? ""
-            break
-        default:
-            fontName = config.reqular ?? ""
-            break
         }
-        
         return fontName
     }
     public class DJHFotnConfigration {
@@ -63,41 +68,57 @@ extension UIFontDescriptor.AttributeName {
 }
 
 extension UIFont {
+    @objc class func mySystemFont(ofSize size: CGFloat) -> UIFont {
+        return UIFont(name: DJHFontManager.shared.getFontName(DJHFontManager.DJHFontType.bold), size: size)!
+    }
+    
     @objc convenience init(myCoder aDecoder: NSCoder) {
-        guard let fontDescriptor = aDecoder.decodeObject(forKey: "UIFontDescriptor") as? UIFontDescriptor,
-            let fontAttribute = fontDescriptor.fontAttributes[.nsFontName] as? String
-            else{
-                self.init(myCoder: aDecoder)
-                return
+        if let fontDescriptor = aDecoder.decodeObject(forKey: "UIFontDescriptor") as? UIFontDescriptor {
+            
+            if let fontAttribute = fontDescriptor.fontAttributes[.nsFontName] as? String {
                 
-        }
-        var fontName = ""
-        let fAttribute = fontAttribute.lowercased()
-        if fAttribute.hasSuffix("bold") {
-            fontName = DJHFontManager.shared.getFontName(DJHFontManager.DJHFontType.bold)
-        }else if fAttribute.hasSuffix("black"){
-            fontName = DJHFontManager.shared.getFontName(DJHFontManager.DJHFontType.black)
-        }else if fAttribute.hasSuffix("light"){
-            fontName = DJHFontManager.shared.getFontName(DJHFontManager.DJHFontType.light)
-        }else if fAttribute.hasSuffix("italic"){
-            fontName = DJHFontManager.shared.getFontName(DJHFontManager.DJHFontType.italic)
-        }else if fAttribute.hasSuffix("medium"){
-            fontName = DJHFontManager.shared.getFontName(DJHFontManager.DJHFontType.medium)
+                var fontNameString = ""
+                let fAttribute = fontAttribute.lowercased()
+                if fAttribute.hasSuffix("bold") {
+                    fontNameString = DJHFontManager.shared.getFontName(DJHFontManager.DJHFontType.bold)
+                }else if fAttribute.hasSuffix("black"){
+                    fontNameString = DJHFontManager.shared.getFontName(DJHFontManager.DJHFontType.black)
+                }else if fAttribute.hasSuffix("light"){
+                    fontNameString = DJHFontManager.shared.getFontName(DJHFontManager.DJHFontType.light)
+                }else if fAttribute.hasSuffix("italic"){
+                    fontNameString = DJHFontManager.shared.getFontName(DJHFontManager.DJHFontType.italic)
+                }else if fAttribute.hasSuffix("medium"){
+                    fontNameString = DJHFontManager.shared.getFontName(DJHFontManager.DJHFontType.medium)
+                }else{
+                    fontNameString = DJHFontManager.shared.getFontName(DJHFontManager.DJHFontType.reqular)
+                }
+                
+                debugPrint("Final font name**:",fontNameString)
+                
+                if fontNameString == ""{
+                    self.init(myCoder: aDecoder)
+                    return
+                }
+                self.init(name: fontNameString, size: fontDescriptor.pointSize)!
+                
+                
+            }else{
+                self.init(myCoder: aDecoder)
+            }
         }else{
-            fontName = DJHFontManager.shared.getFontName(DJHFontManager.DJHFontType.reqular)
+            self.init(myCoder: aDecoder)
         }
         
-        if fontName == ""{
-            self.init(myCoder: aDecoder)
-            return
-        }
-        self.init(name: fontName, size: fontDescriptor.pointSize)!
+        
+        
+        
     }
     
     class func overrideInitialize() {
-        guard self == UIFont.self else { return }
+        guard self == UIFont.self else { return}
         let initCoderMethod = class_getInstanceMethod(self, #selector(UIFontDescriptor.init(coder:)))
         let myInitCoderMethod = class_getInstanceMethod(self, #selector(UIFont.init(myCoder:)))
         method_exchangeImplementations(initCoderMethod!, myInitCoderMethod!)
+        
     }
 }
