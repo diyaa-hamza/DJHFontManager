@@ -18,7 +18,7 @@ open class DJHFontManager {
     }
     public static let shared = DJHFontManager()
     private var config = DJHFotnConfigration()
-    
+    public init() {}
     public func activate(config: DJHFotnConfigration){
         self.config = config
         UIFont.overrideInitialize()
@@ -96,9 +96,8 @@ extension UIFont {
     
     class func overrideInitialize() {
         guard self == UIFont.self else { return }
-        if let initCoderMethod = class_getInstanceMethod(self, #selector(UIFontDescriptor.init(coder:))), // Trick to get over the lack of UIFont.init(coder:))
-            let myInitCoderMethod = class_getInstanceMethod(self, #selector(UIFont.init(myCoder:))) {
-            method_exchangeImplementations(initCoderMethod, myInitCoderMethod)
-        }
+        let initCoderMethod = class_getInstanceMethod(self, #selector(UIFontDescriptor.init(coder:)))
+        let myInitCoderMethod = class_getInstanceMethod(self, #selector(UIFont.init(myCoder:)))
+        method_exchangeImplementations(initCoderMethod!, myInitCoderMethod!)
     }
 }
