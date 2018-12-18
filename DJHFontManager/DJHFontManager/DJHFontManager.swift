@@ -18,9 +18,10 @@ open class DJHFontManager {
     }
     public static let shared = DJHFontManager()
     private  var config = DJHFotnConfigration()
-    
-    public func activate(config: DJHFotnConfigration){
+    var resizeFontBy: Int = 0
+    public func activate(config: DJHFotnConfigration, resizeFontBy: Int = 0){
         self.config = config
+        self.resizeFontBy = resizeFontBy
         UIFont.overrideInitialize()
     }
     
@@ -42,6 +43,12 @@ open class DJHFontManager {
         }
         return fontName
     }
+    
+    public func getFont(type: DJHFontType, ofSize: CGFloat) -> UIFont
+    {
+        return UIFont(name: getFontName(type), size: ofSize)!
+    }
+    
     public class DJHFotnConfigration {
         var reqular: String?
         var bold: String?
@@ -92,14 +99,13 @@ extension UIFont {
                 }else{
                     fontNameString = DJHFontManager.shared.getFontName(DJHFontManager.DJHFontType.reqular)
                 }
-                
-                debugPrint("Final font name**:",fontNameString)
-                
+
                 if fontNameString == ""{
                     self.init(myCoder: aDecoder)
                     return
                 }
-                self.init(name: fontNameString, size: fontDescriptor.pointSize)!
+                let fontSize = fontDescriptor.pointSize - CGFloat(DJHFontManager.shared.resizeFontBy)
+                self.init(name: fontNameString, size: fontSize)!
                 
                 
             }else{
