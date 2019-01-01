@@ -75,9 +75,19 @@ extension UIFontDescriptor.AttributeName {
 }
 
 extension UIFont {
-    @objc class func mySystemFont(ofSize size: CGFloat) -> UIFont {
+    
+    @objc class func djhSystemFont(ofSize size: CGFloat) -> UIFont {
+        return UIFont(name: DJHFontManager.shared.getFontName(DJHFontManager.DJHFontType.reqular), size: size)!
+    }
+    
+    @objc class func djhBoldSystemFont(ofSize size: CGFloat) -> UIFont {
         return UIFont(name: DJHFontManager.shared.getFontName(DJHFontManager.DJHFontType.bold), size: size)!
     }
+    
+    @objc class func djhItalicSystemFont(ofSize size: CGFloat) -> UIFont {
+        return UIFont(name: DJHFontManager.shared.getFontName(DJHFontManager.DJHFontType.italic), size: size)!
+    }
+
     
     @objc convenience init(myCoder aDecoder: NSCoder) {
         if let fontDescriptor = aDecoder.decodeObject(forKey: "UIFontDescriptor") as? UIFontDescriptor {
@@ -122,6 +132,22 @@ extension UIFont {
     
     class func overrideInitialize() {
         guard self == UIFont.self else { return}
+        
+        if let systemFontMethod = class_getClassMethod(self, #selector(systemFont(ofSize:))),
+            let mySystemFontMethod = class_getClassMethod(self, #selector(djhSystemFont(ofSize:))) {
+            method_exchangeImplementations(systemFontMethod, mySystemFontMethod)
+        }
+        
+        if let boldSystemFontMethod = class_getClassMethod(self, #selector(boldSystemFont(ofSize:))),
+            let myBoldSystemFontMethod = class_getClassMethod(self, #selector(djhBoldSystemFont(ofSize:))) {
+            method_exchangeImplementations(boldSystemFontMethod, myBoldSystemFontMethod)
+        }
+        
+        if let italicSystemFontMethod = class_getClassMethod(self, #selector(italicSystemFont(ofSize:))),
+            let myItalicSystemFontMethod = class_getClassMethod(self, #selector(djhItalicSystemFont(ofSize:))) {
+            method_exchangeImplementations(italicSystemFontMethod, myItalicSystemFontMethod)
+        }
+        
         let initCoderMethod = class_getInstanceMethod(self, #selector(UIFontDescriptor.init(coder:)))
         let myInitCoderMethod = class_getInstanceMethod(self, #selector(UIFont.init(myCoder:)))
         method_exchangeImplementations(initCoderMethod!, myInitCoderMethod!)
