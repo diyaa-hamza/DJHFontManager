@@ -96,20 +96,21 @@ extension UIFont {
                 
                 var fontNameString = ""
                 let fAttribute = fontAttribute.lowercased()
-                if fAttribute.hasSuffix("bold") {
+                
+                if fAttribute.hasSuffix("bold") || fAttribute.hasSuffix("Emphasized") {
                     fontNameString = DJHFontManager.shared.getFontName(DJHFontManager.DJHFontType.bold)
                 }else if fAttribute.hasSuffix("black"){
                     fontNameString = DJHFontManager.shared.getFontName(DJHFontManager.DJHFontType.black)
                 }else if fAttribute.hasSuffix("light"){
                     fontNameString = DJHFontManager.shared.getFontName(DJHFontManager.DJHFontType.light)
-                }else if fAttribute.hasSuffix("italic"){
+                }else if fAttribute.hasSuffix("italic") || fAttribute.lowercased().hasSuffix("Oblique"){
                     fontNameString = DJHFontManager.shared.getFontName(DJHFontManager.DJHFontType.italic)
                 }else if fAttribute.hasSuffix("medium"){
                     fontNameString = DJHFontManager.shared.getFontName(DJHFontManager.DJHFontType.medium)
                 }else{
                     fontNameString = DJHFontManager.shared.getFontName(DJHFontManager.DJHFontType.reqular)
                 }
-
+                
                 if fontNameString == ""{
                     self.init(myCoder: aDecoder)
                     return
@@ -117,6 +118,33 @@ extension UIFont {
                 let fontSize = fontDescriptor.pointSize - CGFloat(DJHFontManager.shared.resizeFontBy)
                 self.init(name: fontNameString, size: fontSize)!
                 
+                
+                
+            }else if let fontAttribute = fontDescriptor.fontAttributes[.nsctFontUIUsage] as? String {
+                
+                var fontNameString = ""
+                let fAttribute = fontAttribute.lowercased()
+                
+                if fAttribute.hasSuffix("bold") || fAttribute.hasSuffix("Emphasized") {
+                    fontNameString = DJHFontManager.shared.getFontName(DJHFontManager.DJHFontType.bold)
+                }else if fAttribute.hasSuffix("black"){
+                    fontNameString = DJHFontManager.shared.getFontName(DJHFontManager.DJHFontType.black)
+                }else if fAttribute.hasSuffix("light"){
+                    fontNameString = DJHFontManager.shared.getFontName(DJHFontManager.DJHFontType.light)
+                }else if fAttribute.hasSuffix("italic") || fAttribute.lowercased().hasSuffix("Oblique"){
+                    fontNameString = DJHFontManager.shared.getFontName(DJHFontManager.DJHFontType.italic)
+                }else if fAttribute.hasSuffix("medium"){
+                    fontNameString = DJHFontManager.shared.getFontName(DJHFontManager.DJHFontType.medium)
+                }else{
+                    fontNameString = DJHFontManager.shared.getFontName(DJHFontManager.DJHFontType.reqular)
+                }
+                
+                if fontNameString == ""{
+                    self.init(myCoder: aDecoder)
+                    return
+                }
+                let fontSize = fontDescriptor.pointSize - CGFloat(DJHFontManager.shared.resizeFontBy)
+                self.init(name: fontNameString, size: fontSize)!
                 
             }else{
                 self.init(myCoder: aDecoder)
